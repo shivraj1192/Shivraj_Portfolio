@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="{% static 'assets/css/weather_new.css' %}" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container10">
+      <img
+        src="https://source.unsplash.com/1550x750/?{{data.description}},water"
+        alt="####"
+      />
+    </div>
+    <div class="w-card">
+      <div class="top">
+        <form action="/weather/" method="post" class="top">
+          {% csrf_token %}
+          <input type="text" name="city" />
+          <button type="submit">Search</button>
+        </form>
+      </div>
+
+      <div class="bottom">
+        <div class="bottomleft">
+          <img
+            src="http://openweathermap.org/img/wn/{{data.icon}}.png"
+            alt="####################"
+          />
+          <h4>{{data.city}}</h4>
+          <h5>{{data.temperature_c}}</h5>
+        </div>
+
+        <div class="bottomright">
+          <h5>weather : {{data.weather}}</h5>
+          <h5>Description : {{data.description}}</h5>
+          <h5>
+            temperature : {{data.temperature_c}} and {{data.temperature_k}}
+          </h5>
+          <h5>min-temp.: {{data.min_temp}}</h5>
+          <h5>max-temp.: {{data.max_temp}}</h5>
+          <h5>pressure : {{data.pressure}}</h5>
+          <h5>humidity : {{data.humidity}}</h5>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

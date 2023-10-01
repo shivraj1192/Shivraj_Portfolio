@@ -1,0 +1,1506 @@
+{% extends 'basic.html' %} {% load static %} {% block style %}
+
+<link href="{% static 'assets/css/home.css' %}" rel="stylesheet" />
+<!-- <link href="{% static 'assets/css/style_welcome.css' %}" rel="stylesheet" /> -->
+
+<style>
+  .container {
+    position: relative;
+  }
+
+  .card {
+    position: relative;
+    width: 800px;
+    height: 450px;
+    border-color: #ffffff00;
+    /* background: #ccc; */
+    background-color: rgba(204, 204, 204, 0);
+    border-radius: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-radius: 20px;
+    transition: 0.5s;
+    margin-left: 50px;
+  }
+
+  .card .circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .card .circle::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(208, 223, 238, 0.886);
+    background-image: url("{% static "assets/img/wallpaperflare.com_wallpaper (16).jpg" %}");
+    clip-path: circle(250px at center);
+    transition: 0.5s;
+  }
+
+  .card:hover .circle:before {
+    background-image: url("{% static "assets/img/pexels-viralyft-17659372.jpg" %}");
+    background-size: cover;
+    clip-path: circle(600px at center);
+  }
+
+  .card img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 200px;
+    width: 200px;
+    pointer-events: none;
+    transition: 0.5s;
+    /* filter: blur(1px); */
+  }
+
+  .card:hover img {
+    left: 94%;
+    height: 500px;
+    width: 500px;
+    filter: none;
+  }
+
+  .card .content {
+    position: absolute;
+    width: 50%;
+    left: 20%;
+    padding: 20px 20px 20px 40px;
+    transition: 0.5s;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .card:hover .content {
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .card .content h1 {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 8em;
+    line-height: 1em;
+  }
+
+  .card .content h2 {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 2em;
+    line-height: 1em;
+  }
+
+  .card .content p {
+    color: #fff;
+    font-size: 0.9em;
+    font-weight: 200;
+  }
+
+  /* ******************************** Weather App *********************************** */
+
+  #weather-card:hover .circle:before {
+    background-image: url("{% static "assets/img/pexels-simon-berger-1183099.jpg" %}");
+    background-size: cover;
+    clip-path: circle(600px at center);
+  }
+
+  #weather-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-left: 20px;
+    background-color: white;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    border-radius: 20px;
+  }
+
+  /* *********************************************** todo app ********************************** */
+
+  #todo-card:hover .circle:before {
+    background-image: url("{% static "assets/img/jessica-lewis-fJXv46LT7Xk-unsplash (1).jpg" %}");
+    background-size: cover;
+    clip-path: circle(600px at center);
+  }
+
+  .todo {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-left: 20px;
+    background-color: #34db7f;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  /* *******************INTERNSHIPS******************* */
+
+  /* *******************Right side******************* */
+
+  .card-a {
+    position: relative;
+    width: 800px;
+    height: 450px;
+    border-color: #ffffff00;
+    /* background: #ccc; */
+    background-color: rgba(204, 204, 204, 0);
+    border-radius: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-radius: 20px;
+    transition: 0.5s;
+    margin-left: 300px;
+  }
+
+  .card-a .circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    /* background-image: url('{% static 'assets/img/wallpaperflare.com_wallpaper (15).jpg' %}'); */
+    overflow: hidden;
+  }
+
+  .card-a .circle::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(25, 33, 41, 0.886);
+    background-image: url("{% static "assets/img/wallpaperflare.com_wallpaper (16).jpg" %}");
+    clip-path: circle(250px at center);
+    transition: 0.5s;
+  }
+
+  .card-a:hover .circle:before {
+    background-image: url("{% static "assets/img/wallpaperflare.com_wallpaper (14).jpg" %}");
+    background-size: cover;
+    clip-path: circle(600px at center);
+  }
+
+  .card-a img {
+    position: absolute;
+    top: 50%;
+    right: 25%;
+    transform: translate(-50%, -50%);
+    height: 200px;
+    width: 200px;
+    pointer-events: none;
+    transition: 0.5s;
+    /* filter: blur(1px); */
+  }
+
+  .card-a:hover img {
+    right: 30%;
+    height: 500px;
+    width: 500px;
+    filter: none;
+  }
+
+  .card-a .content {
+    position: absolute;
+    width: 60%;
+    height: 450px;
+    right: 20%;
+    padding: 20px 20px 20px 40px;
+    transition: 0.5s;
+    opacity: 0;
+    visibility: hidden;
+    background-color: #00000066;
+    border-radius: 20px;
+  }
+
+  .card-a:hover .content {
+    right: 0;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .card-a .content h1 {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 8em;
+    line-height: 1em;
+    margin-left: 200px;
+  }
+
+  .card-a .content h2 {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 2em;
+    line-height: 1em;
+  }
+
+  .card-a .content p {
+    color: #fffefe;
+    font-size: 0.9em;
+    font-weight: 200;
+  }
+
+  /* *************************NASHIK POWER********************************************************* */
+
+  .card-b {
+    position: relative;
+    width: 800px;
+    height: 450px;
+    border-color: #ffffff00;
+    /* background: #ccc; */
+    background-color: rgba(204, 204, 204, 0);
+    border-radius: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-radius: 20px;
+    transition: 0.5s;
+    margin-left: 50px;
+  }
+
+  .card-b .circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .card-b .circle::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(208, 223, 238, 0.886);
+    background-image: url("{% static "assets/img/wallpaperflare.com_wallpaper (16).jpg" %}");
+    clip-path: circle(250px at center);
+    transition: 0.5s;
+  }
+
+  .card-b:hover .circle:before {
+    background-image: url("{% static "assets/img/wallpaperflare.com_wallpaper (11).jpg" %}");
+    background-size: cover;
+    clip-path: circle(600px at center);
+  }
+
+  .card-b img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 200px;
+    width: 200px;
+    pointer-events: none;
+    transition: 0.5s;
+    /* filter: blur(1px); */
+  }
+
+  .card-b:hover img {
+    left: 94%;
+    height: 600px;
+    width: 600px;
+    filter: none;
+  }
+
+  .card-b .content {
+    position: absolute;
+    width: 50%;
+    height: 450px;
+    left: 20%;
+    padding: 20px 20px 20px 40px;
+    transition: 0.5s;
+    opacity: 0;
+    visibility: hidden;
+    background-color: #00000080;
+    border-radius: 20ps;
+  }
+
+  .card-b:hover .content {
+    left: 0;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .card-b .content h1 {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 8em;
+    line-height: 1em;
+  }
+
+  .card-b .content h2 {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 2em;
+    line-height: 1em;
+  }
+
+  .card-b .content p {
+    color: #fff;
+    font-size: 0.9em;
+    font-weight: 200;
+  }
+
+  @media (max-width: 991px) {
+    body {
+      overflow-x: hidden;
+    }
+    .card {
+      width: 300px;
+      max-width: 400px;
+      align-items: flex-start;
+      justify-content: flex-start;
+      margin-left: 20px;
+      margin-bottom: 120px;
+    }
+
+    .card:hover {
+      width: 300px;
+      height: 600px;
+      margin-left: 20px;
+    }
+
+    .card .content {
+      width: 100%;
+      left: 0;
+      padding: 5px;
+    }
+
+    .card .content h1 {
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 3em;
+      line-height: 1em;
+      margin-left: 200px;
+    }
+
+    .card .content h2 {
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 1.5em;
+      line-height: 1em;
+    }
+
+    .card img {
+      width: 300px;
+      height: 300px;
+      margin-left: 40px;
+    }
+
+    .card:hover img {
+      top: 90%;
+      left: 20%;
+      height: 400px;
+      width: 400px;
+      margin-left: 115px;
+      margin-top: 20px;
+    }
+
+    .card-a {
+      width: 300px;
+      max-width: 300px;
+      align-items: flex-start;
+      justify-content: flex-start;
+      margin-left: 20px;
+      margin-bottom: 150px;
+    }
+
+    .card-a:hover {
+      width: 300px;
+      height: 600px;
+      margin-left: 20px;
+    }
+
+    .card-a .content {
+      width: 100%;
+      left: 0;
+      padding: 5px;
+    }
+
+    .card-a .content h1 {
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 3em;
+      line-height: 1em;
+      margin-left: 200px;
+    }
+
+    .card-a .content h2 {
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 1.5em;
+      line-height: 1em;
+    }
+
+    .card-a img {
+      width: 300px;
+      height: 300px;
+      margin-right: -250px;
+    }
+
+    .card-a:hover img {
+      top: 90%;
+      left: 20%;
+      height: 400px;
+      width: 400px;
+      margin-left: 150px;
+    }
+
+    .card-b {
+      width: 300px;
+      height: 500px;
+      max-width: 300px;
+
+      align-items: flex-start;
+      justify-content: flex-start;
+      margin-left: 20px;
+      margin-bottom: 150px;
+    }
+
+    .card-b:hover {
+      width: 300px;
+      height: 600px;
+      margin-left: 20px;
+      margin-bottom: 150px;
+    }
+
+    .card-b .content {
+      width: 100%;
+      left: 0;
+      padding: 5px;
+    }
+
+    .card-b .content h1 {
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 3em;
+      line-height: 1em;
+      margin-left: 200px;
+    }
+
+    .card-b .content h2 {
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 1.5em;
+      line-height: 1em;
+    }
+
+    .card-b img {
+      width: 300px;
+      height: 300px;
+      margin-left: 80px;
+    }
+
+    .card-b:hover img {
+      top: 90%;
+      left: 40%;
+      height: 400px;
+      width: 400px;
+      margin-right: 20px;
+      margin-bottom: 150px;
+    }
+    .mobile-nav-toggle {
+      margin-right: 20px;
+    }
+
+    #footer {
+      display: none;
+    }
+  }
+
+  .qrcode {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-left: 20px;
+    background-color: #34db7f;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 350px;
+    background-color: #355891;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+  }
+
+  .message {
+    color: #355891;
+    font-size: 14px;
+  }
+
+  .flex {
+    display: flex;
+    width: 100%;
+    gap: 6px;
+  }
+
+  .form label {
+    position: relative;
+  }
+
+  .form label .input {
+    width: 100%;
+    padding: 10px 10px 20px 10px;
+    outline: 0;
+    border: 1px solid #355891;
+    border-radius: 5px;
+  }
+
+  .form label .input + span {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    color: #355891;
+    font-size: 0.9em;
+    cursor: text;
+    transition: 0.3s ease;
+  }
+
+  .form label .input:placeholder-shown + span {
+    top: 15px;
+    font-size: 0.9em;
+  }
+
+  .form label .input:focus + span,
+  .form label .input:valid + span {
+    top: 30px;
+    font-size: 0.7em;
+    font-weight: 600;
+  }
+
+  .form label .input:valid + span {
+    color: green;
+  }
+
+  .input01 {
+    width: 100%;
+    padding: 10px 10px 20px 10px;
+    outline: 0;
+    border: 1px solid #355891;
+    border-radius: 5px;
+  }
+
+  .form label .input01 + span {
+    position: absolute;
+    left: 10px;
+    top: 50px;
+    color: #355891;
+    font-size: 0.9em;
+    cursor: text;
+    transition: 0.3s ease;
+  }
+
+  .form label .input01:placeholder-shown + span {
+    top: 40px;
+    font-size: 0.9em;
+  }
+
+  .form label .input01:focus + span,
+  .form label .input01:valid + span {
+    top: 50px;
+    font-size: 0.7em;
+    font-weight: 600;
+  }
+
+  .form label .input01:valid + span {
+    color: green;
+  }
+
+  .button {
+    position: relative;
+    padding: 12px 35px;
+    background: #fec195;
+    font-size: 17px;
+    font-weight: 500;
+    color: #181818;
+    border: 3px solid #fec195;
+    border-radius: 8px;
+    box-shadow: 0 0 0 #fec1958c;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .star-1 {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 25px;
+    height: auto;
+    filter: drop-shadow(0 0 0 #fffdef);
+    z-index: -5;
+    transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96);
+  }
+
+  .star-2 {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    width: 15px;
+    height: auto;
+    filter: drop-shadow(0 0 0 #fffdef);
+    z-index: -5;
+    transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
+  }
+
+  .star-3 {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 5px;
+    height: auto;
+    filter: drop-shadow(0 0 0 #fffdef);
+    z-index: -5;
+    transition: all 1s cubic-bezier(0, 0.4, 0, 1.01);
+  }
+
+  .star-4 {
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    width: 8px;
+    height: auto;
+    filter: drop-shadow(0 0 0 #fffdef);
+    z-index: -5;
+    transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01);
+  }
+
+  .star-5 {
+    position: absolute;
+    top: 25%;
+    left: 45%;
+    width: 15px;
+    height: auto;
+    filter: drop-shadow(0 0 0 #fffdef);
+    z-index: -5;
+    transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01);
+  }
+
+  .star-6 {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    width: 5px;
+    height: auto;
+    filter: drop-shadow(0 0 0 #fffdef);
+    z-index: -5;
+    transition: all 0.8s ease;
+  }
+
+  .button:hover {
+    background: transparent;
+    color: #fec195;
+    box-shadow: 0 0 25px #fec1958c;
+  }
+
+  .button:hover .star-1 {
+    position: absolute;
+    top: -80%;
+    left: -30%;
+    width: 25px;
+    height: auto;
+    filter: drop-shadow(0 0 10px #fffdef);
+    z-index: 2;
+  }
+
+  .button:hover .star-2 {
+    position: absolute;
+    top: -25%;
+    left: 10%;
+    width: 15px;
+    height: auto;
+    filter: drop-shadow(0 0 10px #fffdef);
+    z-index: 2;
+  }
+
+  .button:hover .star-3 {
+    position: absolute;
+    top: 55%;
+    left: 25%;
+    width: 5px;
+    height: auto;
+    filter: drop-shadow(0 0 10px #fffdef);
+    z-index: 2;
+  }
+
+  .button:hover .star-4 {
+    position: absolute;
+    top: 30%;
+    left: 80%;
+    width: 8px;
+    height: auto;
+    filter: drop-shadow(0 0 10px #fffdef);
+    z-index: 2;
+  }
+
+  .button:hover .star-5 {
+    position: absolute;
+    top: 25%;
+    left: 115%;
+    width: 15px;
+    height: auto;
+    filter: drop-shadow(0 0 10px #fffdef);
+    z-index: 2;
+  }
+
+  .button:hover .star-6 {
+    position: absolute;
+    top: 5%;
+    left: 60%;
+    width: 5px;
+    height: auto;
+    filter: drop-shadow(0 0 10px #fffdef);
+    z-index: 2;
+  }
+
+  .fil0 {
+    fill: #fffdef;
+  }
+
+  .page4 {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding-top: 100px;
+    background: rgb(1, 15, 24);
+    font-family: "Roboto", sans-serif;
+    overflow-x: hidden;
+  }
+
+  .con-contain {
+    background-color: rgb(1, 15, 24);
+    max-width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em;
+  }
+
+  div.con-form {
+    background-color: #935ea6;
+    border-radius: 25px;
+  }
+  .con-contact-wrapper {
+    margin: auto 0;
+  }
+
+  .con-submit-btn {
+    float: left;
+  }
+  .con-reset-btn {
+    float: right;
+  }
+
+  .con-form-headline:after {
+    content: "";
+    display: block;
+    width: 10%;
+    padding-top: 10px;
+    border-bottom: 3px solid #ec1c24;
+  }
+
+  .highlight-text {
+    color: #ec1c24;
+  }
+
+  .hightlight-contact-info {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.5;
+  }
+
+  .highlight-text-grey {
+    font-weight: 500;
+  }
+
+  .email-info {
+    margin-top: 20px;
+  }
+
+  ::-webkit-input-placeholder {
+    /* Chrome */
+    font-family: "Roboto", sans-serif;
+  }
+
+  .required-input {
+    color: black;
+  }
+  /* @media (min-width: 600px) {
+  .con-contain {
+    padding: 0;
+  }
+} */
+
+  .con-form-input:focus,
+  textarea:focus {
+    outline: 1.5px solid #ec1c24;
+  }
+
+  .con-form-input,
+  textarea {
+    width: 100%;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+  }
+
+  .con-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 50px;
+  }
+
+  .con-wrapper > * {
+    padding: 1em;
+  }
+  /* @media (min-width: 700px) {
+  
+  .con-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+  .con-wrapper > * {
+    padding: 2em 2em;
+  }
+} */
+
+  .con-contacts {
+    color: #212d31;
+  }
+
+  .con-form {
+    background: #fff;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+  }
+  .con-form label {
+    display: block;
+  }
+  .con-form p {
+    margin: 0;
+  }
+
+  .full-width {
+    grid-column: 1 / 3;
+  }
+
+  .con-submit-btn,
+  .con-form-input,
+  textarea {
+    padding: 1em;
+  }
+
+  .con-submit-btn {
+    background: transparent;
+    border: 1px solid #ec1c24;
+    color: #ec1c24;
+    border-radius: 15px;
+    padding: 5px 20px;
+    text-transform: uppercase;
+  }
+  .con-submit-btn:hover,
+  .con-submit-btn:focus {
+    background: #ec1c24;
+    outline: 0;
+    color: #eee;
+  }
+  .error {
+    color: #ec1c24;
+  }
+
+  .C-svg {
+    width: 500px;
+    height: auto;
+  }
+
+  @media (max-width: 970px) {
+    .page4 {
+      overflow-x: hidden;
+      height: 1000px;
+    }
+
+    .con-form {
+      width: 300px;
+    }
+
+    .con-wrapper {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .C-svg {
+      width: 300px !important;
+    }
+
+    .img:after {
+      width: 100%;
+      height: 100%;
+      margin-top: 0px;
+    }
+
+    .img {
+      width: 300px;
+      height: 300px;
+    }
+
+    .img #user {
+      position: relative;
+      width: 290px;
+      margin-left: 50px;
+      margin-bottom: -176px;
+      margin-top: -105px;
+    }
+  }
+
+  .wrapper .dynamic-txts {
+    margin-left: -50px;
+    height: 90px;
+    line-height: 90px;
+    overflow: hidden;
+  }
+  .page1
+  {
+    overflow-y: hidden;
+  }
+</style>
+
+{% endblock style %} 
+{% block title %} Shivraj's Portfolio Website {% endblock title %} 
+{% block body %}
+
+<div class="page1" id="page1">
+  <!-- <video autoplay loop muted>
+      <source src="space_-_5200 (Original).mp4" type="video/mp4">
+      
+    </video> -->
+  <div class="text">
+    <p class="username">SHIVRAJ TELANGE</p>
+
+    <div class="wrapper">
+      <div class="static-txt">I'm a</div>
+      <ul class="dynamic-txts">
+        <li><span>Coder</span></li>
+        <li><span>Designer</span></li>
+        <li><span>Web Developer</span></li>
+        <li><span>Python Developer</span></li>
+      </ul>
+    </div>
+    <div class="bttn">
+      <button id="cv">
+        <a
+          id="cv-a"
+          href="{% static 'assets/img/Shivraj_Telange_Resume_23_09_23.pdf' %}"
+          download="Shivraj_Telange_Resume_23_09_23.pdf"
+          >Download CV</a
+        >
+      </button>
+    </div>
+  </div>
+  <div class="img">
+    <br /><br /><br /><br /><br /><br />
+    <img
+      id="user"
+      src="{% static 'assets/img/5c90e35ec97fa87663622d596ba6b33a-removebg-preview.png' %}"
+      alt=""
+    />
+  </div>
+</div>
+
+<!-- ######################################### About ##################################### -->
+
+<div id="page2" class="page2">
+  <h3 class="h3">About <span>Me</span></h3>
+
+  <div class="imgbox">
+    <div class="smimg">
+      <img
+        src="{% static 'assets/img/8a5310a4f382f7fec5ca397e2023d6e4-removebg-preview.png' %}"
+        alt=""
+      />
+    </div>
+  </div>
+
+  <h3 class="info">Personal <span> Infos</span></h3>
+
+  <!-- ############## designbox1 ################### -->
+  <div class="designbox1"></div>
+
+  <div class="about">
+    <div class="designbox2"></div>
+    <div class="abtsvg">
+      <img src="{% static 'assets/img/programming-animate (2).svg' %}" alt="" />
+    </div>
+    <div class="col">
+      <div class="firstcol">
+        <h5 class="I">Name : <span>Shivraj Telange</span></h5>
+        <br />
+        <h5 class="I">Age : <span>21</span></h5>
+        <br />
+        <h5 class="I">Birthday : <span>10 march 2002</span></h5>
+        <br />
+        <h5 class="I">Phone : <span>7058466941</span></h5>
+        <br />
+      </div>
+      <div class="designbox4"></div>
+      <div class="secondcol">
+        <h5 class="I">Degree : <span>Btech</span></h5>
+        <br />
+        <h5 class="I">Address : <span>Nanded</span></h5>
+        <br />
+        <h5 class="I">Languages : <span>English, Marathi, Hindi</span></h5>
+        <br />
+        <h5 class="I">Email : <span>telangeshivraj1192@gmail.com</span></h5>
+        <br />
+      </div>
+    </div>
+  </div>
+
+  <!-- ########################################## skills ############################# -->
+
+  <h3 class="info">My <span>Skills</span></h3>
+
+  <div class="mainskills">
+    <div class="skills1">
+      <div class="skills">
+        <div class="details">
+          <span>SOLIDWORKS</span>
+          <span>70%</span>
+        </div>
+        <div class="bar">
+          <div class="solid-bar" style="--no: 70%"></div>
+        </div>
+      </div>
+      <div class="skills">
+        <div class="details">
+          <span>SIEMENS NX</span>
+          <span>85%</span>
+        </div>
+        <div class="bar">
+          <div class="solid-bar" style="--no: 85%"></div>
+        </div>
+      </div>
+
+      <div class="skills">
+        <div class="details">
+          <span>AUTOCAD</span>
+          <span>70%</span>
+        </div>
+        <div class="bar">
+          <div class="solid-bar" style="--no: 70%"></div>
+        </div>
+      </div>
+      <div class="skills">
+        <div class="details">
+          <span>C</span>
+          <span>95%</span>
+        </div>
+        <div class="bar">
+          <div class="solid-bar" style="--no: 95%"></div>
+        </div>
+      </div>
+      <div class="skills">
+        <div class="details">
+          <span>C++</span>
+          <span>70%</span>
+        </div>
+        <div class="bar">
+          <div class="solid-bar" style="--no: 70%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="designbox3"></div>
+
+    <div class="skills2">
+      <div class="skillcard">
+        <div class="percent" style="--clr: #fc6604; --num: 99">
+          <div class="dot"></div>
+          <svg>
+            <circle cx="70" cy="70" r="70"></circle>
+            <circle cx="70" cy="70" r="70"></circle>
+          </svg>
+          <div class="number">
+            <h2>99<span>%</span></h2>
+            <p class="skillname">Python</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="skillcard">
+        <div class="percent" style="--clr: #06ccff; --num: 80">
+          <div class="dot"></div>
+          <svg>
+            <circle cx="70" cy="70" r="70"></circle>
+            <circle cx="70" cy="70" r="70"></circle>
+          </svg>
+          <div class="number">
+            <h2>80<span>%</span></h2>
+            <p class="skillname">Django</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="skillcard">
+        <div class="percent" style="--clr: #ad00ff; --num: 99">
+          <div class="dot"></div>
+          <svg>
+            <circle cx="70" cy="70" r="70"></circle>
+            <circle cx="70" cy="70" r="70"></circle>
+          </svg>
+          <div class="number">
+            <h2>99<span>%</span></h2>
+            <p class="skillname">SQl</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="skillcard">
+        <div class="percent" style="--clr: #fee800; --num: 99">
+          <div class="dot"></div>
+          <svg>
+            <circle cx="70" cy="70" r="70"></circle>
+            <circle cx="70" cy="70" r="70"></circle>
+          </svg>
+          <div class="number">
+            <h2>99<span>%</span></h2>
+            <p class="skillname">Html</p>
+          </div>
+        </div>
+      </div>
+      <div class="skillcard">
+        <div class="percent" style="--clr: #77fe00; --num: 75">
+          <div class="dot"></div>
+          <svg>
+            <circle cx="70" cy="70" r="70"></circle>
+            <circle cx="70" cy="70" r="70"></circle>
+          </svg>
+          <div class="number">
+            <h2>75<span>%</span></h2>
+            <p class="skillname">Css</p>
+          </div>
+        </div>
+      </div>
+      <div class="skillcard">
+        <div class="percent" style="--clr: #fe00b2; --num: 50">
+          <div class="dot"></div>
+          <svg>
+            <circle cx="70" cy="70" r="70"></circle>
+            <circle cx="70" cy="70" r="70"></circle>
+          </svg>
+          <div class="number">
+            <h2>50<span>%</span></h2>
+            <p class="skillname">Java Script</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ########################################## INTERNSHIP ################################################### -->
+
+<div class="page3" id="page3">
+  <br />
+  <br />
+  <br />
+  <div class="container">
+    <h2 style="color: white"><b>PROJECTS</b></h2>
+
+    <br />
+    <br />
+    <br />
+    <h4 style="color: white"><b>#01 : QRCode Generator</b></h4>
+    <div class="card">
+      <div class="circle"></div>
+      <div class="content">
+        <h1 class="text-white">#01</h1>
+        <h2>QRCode Generator</h2>
+        <p>
+          I developed a dynamic QR code generator project, leveraging Python and
+          its libraries. This project generates customizable QR codes containing
+          various data types like URLs, text, and contact details. The generator
+          offers a user-friendly interface and showcases my proficiency in
+          Python programming, data handling, and creating practical solutions
+          for data encoding and sharing.
+        </p>
+        <a
+          style="background-color: #ffffff; border-radius: 15px"
+          href="/qrcode"
+          class="qrcode"
+        >
+          <span> Generate Qrcode</span></a
+        >
+      </div>
+      <img id="qrcode" src="{% static 'assets/img/123.png' %}" alt="" />
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    {% comment %} ######################################### change it
+    ###################################################3 {% endcomment %}
+    <h4 style="color: white"><b>#02 : Weather Application</b></h4>
+    <div class="card-a" id="weather-card">
+      <div class="circle"></div>
+      <div class="content">
+        <h1 class="text-white">#02</h1>
+        <h2>Weather Application</h2>
+        <p>
+          I've developed an innovative weather application using Python, which
+          seamlessly merges data from multiple sources to provide highly
+          accurate and dependable real-time weather forecasts. This project
+          serves as a testament to my proficiency in data aggregation, API
+          integration, and the creation of user-centric applications tailored to
+          weather enthusiasts.
+        </p>
+        <a href="/weather" class="weather" id="weather-btn"> Go Live</a>
+        <br />
+        <br />
+      </div>
+      <img src="{% static 'assets/img/pngwing.com (31).png' %}" alt="" />
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <h4 style="color: white"><b>#03 : Multi User ToDo List App</b></h4>
+    <div class="card" id="todo-card">
+      <div class="circle"></div>
+      <div class="content">
+        <h1 class="text-white">#03</h1>
+        <h2>Multi User ToDo List App</h2>
+        <p>
+          Developed a dynamic and user-friendly to-do list web application using
+          Django, streamlining task management and enhancing productivity.
+        </p>
+        <a
+          style="background-color: #ffffff; border-radius: 15px"
+          target="_blank"
+          href="https://multi-user-todo-list-six.vercel.app/"
+          class="todo"
+        >
+          <span> Go Live</span></a
+        >
+      </div>
+      <img
+        id="qrcode"
+        src="{% static 'assets/img/pngwing.com (32).png' %}"
+        alt=""
+      />
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <!-- ======= Internships ======= -->
+
+    <h2 style="color: white"><b>INTERNSHIP's</b></h2>
+
+    <br />
+    <br />
+    <br />
+    <h4 style="color: white"><b>#01 : Varroc Polymers Pvt. Ltd.</b></h4>
+    <div class="card-a">
+      <div class="circle"></div>
+      <div class="content">
+        <h1 class="text-white">#01</h1>
+        <h2>Varroc Polymers Pvt. Ltd.</h2>
+        <p>
+          During my one-month inplant training program in a Varroc Polymers Pvt.
+          Ltd., I was introduced to the company's operations and given an
+          overview of the polymer industry. I learned to check quality of
+          product from lot of production. I got practical knowledge about
+          production planning and control which I have studied in my college.
+          Also experienced how operations research is used in industry.
+        </p>
+        <br />
+        <br />
+      </div>
+      <img src="{% static 'assets/img/pngwing.com (11).png' %}" alt="" />
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <h4 style="color: white"><b>#02 : NASHIK THERMAL POWER STATION</b></h4>
+    <div class="card-b">
+      <div class="circle"></div>
+      <div class="content">
+        <h1>#02</h1>
+        <h2>NASHIK THERMAL POWER STATION</h2>
+        <p>
+          As an intern in the power station, I will be actively involved in
+          routine maintenance tasks such as cleaning, lubricating, and replacing
+          worn-out parts, alongside assisting with more significant repairs when
+          needed. I will work under the guidance of experienced engineers and
+          technicians, ensuring smooth and efficient equipment operation. My
+          role will also involve adhering to safety guidelines, documenting
+          activities, and fostering a positive learning experience in power
+          station operations.
+        </p>
+      </div>
+      <img src="{% static 'assets/img/pngwing.com (20).png' %}" alt="" />
+    </div>
+
+    <br />
+    <br />
+    <br />
+  </div>
+</div>
+
+<!-- ##################################################### Contact ########################################### -->
+
+<div class="page4" id="page4">
+  <div class="con-contain">
+    <div class="con-wrapper">
+      <div class="con-form">
+        <h4>GET IN TOUCH</h4>
+        <h2 class="con-form-headline">Send me a message</h2>
+        <form id="submit-form" action="/contact/" method="post">
+          {% csrf_token %}
+          <p>
+            <input
+              id="name"
+              class="con-form-input"
+              type="text"
+              name="port-name"
+              placeholder="Your Name*"
+              required
+            />
+            <small class="name-error"></small>
+          </p>
+          <p>
+            <input
+              id="email"
+              class="con-form-input"
+              type="text"
+              name="port-num"
+              placeholder="Your Mo. No.*"
+              required
+            />
+            <small class="name-error"></small>
+          </p>
+          <p class="full-width">
+            <input
+              id="company-name"
+              class="con-form-input"
+              type="email"
+              name="port-email"
+              placeholder="Your Email*"
+              required
+            />
+            <small></small>
+          </p>
+          <p class="full-width">
+            <textarea
+              minlength="0"
+              id="message"
+              cols="30"
+              rows="7"
+              name="port-message"
+              placeholder="Your Message*"
+              required
+            ></textarea>
+            <small></small>
+          </p>
+
+          <p class="full-width">
+            <button
+              type="submit"
+              class="con-submit-btn"
+              value="Submit"
+              onclick="checkValidations()"
+            >
+              Submit
+            </button>
+          </p>
+        </form>
+      </div>
+
+      <div class="contacts contact-wrapper">
+        <img
+          class="C-svg"
+          src="{% static 'assets/img/get-in-touch-animate (1).svg' %}"
+          alt=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const nameEl = document.querySelector("#name");
+  const emailEl = document.querySelector("#email");
+  const companyNameEl = document.querySelector("#company-name");
+  const messageEl = document.querySelector("#message");
+
+  const form = document.querySelector("#submit-form");
+
+  function checkValidations() {
+    let letters = /^[a-zA-Z\s]*$/;
+    const name = nameEl.value.trim();
+    const email = emailEl.value.trim();
+    const companyName = companyNameEl.value.trim();
+    const message = messageEl.value.trim();
+    if (name === "") {
+      document.querySelector(".name-error").classList.add("error");
+      document.querySelector(".name-error").innerText =
+        "Please fill out this field!";
+    } else {
+      if (!letters.test(name)) {
+        document.querySelector(".name-error").classList.add("error");
+        document.querySelector(".name-error").innerText =
+          "Please enter only characters!";
+      } else {
+      }
+    }
+    if (email === "") {
+      document.querySelector(".name-error").classList.add("error");
+      document.querySelector(".name-error").innerText =
+        "Please fill out this field!";
+    } else {
+      if (!letters.test(name)) {
+        document.querySelector(".name-error").classList.add("error");
+        document.querySelector(".name-error").innerText =
+          "Please enter only characters!";
+      } else {
+      }
+    }
+  }
+
+  function reset() {
+    nameEl = "";
+    emailEl = "";
+    companyNameEl = "";
+    messageEl = "";
+    document.querySelector(".name-error").innerText = "";
+  }
+</script>
+{% endblock body %}

@@ -1,0 +1,419 @@
+{% extends 'basic.html' %} {% load static %} {% block title %}Qrcode{% endblock
+    title %} {% block style %}
+    <style>
+      body {
+        position: relative;
+        /* margin: 0; */
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        padding: 250px;
+        margin-top: -180px;
+        margin-left: 170px;
+        /* background: gray; */
+      }
+    
+      #background-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 120%;
+        height: 100%;
+        min-width: 100%;
+        min-height: 100%;
+        object-fit: cover;
+        z-index: -1; /* Place the video behind other content */
+        filter: blur(10px);
+      }
+    
+      .content {
+        /* Styles for your content on top of the video */
+        /* Adjust positioning, colors, fonts, etc. */
+        position: relative;
+        z-index: 1; /* Place your content above the video */
+      }
+    
+      .generator {
+        position: relative;
+        height: 180px;
+        width: 350px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 4px;
+        color: #333;
+        box-shadow: 0px 0px 60px 5px rgba(0, 0, 0, 0.4);
+      }
+    
+      .generator:after {
+        position: absolute;
+        content: "";
+        right: -10px;
+        bottom: 18px;
+        width: 0;
+        height: 0;
+        border-left: 0px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid #1a044e;
+      }
+    
+      .generator p {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        letter-spacing: 4px;
+        line-height: 28px;
+      }
+    
+      .generator input {
+        position: absolute;
+        bottom: 30px;
+        border: none;
+        border-bottom: 1px solid #d4d4d4;
+        padding: 10px;
+        width: 82%;
+        background: transparent;
+        transition: all 0.25s ease;
+      }
+    
+      .generator input:focus {
+        outline: none;
+        border-bottom: 1px solid #0d095e;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          "sans-serif";
+      }
+    
+      .generator .submit-btn {
+        position: absolute;
+        border-radius: 30px;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+        background-color: #0f0092;
+        color: #fff;
+        padding: 12px 25px;
+        display: inline-block;
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 5px;
+        right: -10px;
+        bottom: -20px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        box-shadow: -5px 6px 20px 0px rgba(26, 26, 26, 0.4);
+      }
+    
+      .generator .submit-btn:hover {
+        background-color: #07013d;
+        box-shadow: -5px 6px 20px 0px rgba(88, 88, 88, 0.569);
+      }
+    
+      .ui-btn {
+        --btn-default-bg: rgb(41, 41, 41);
+        --btn-padding: 15px 20px;
+        --btn-hover-bg: rgb(51, 51, 51);
+        --btn-transition: 0.3s;
+        --btn-letter-spacing: 0.1rem;
+        --btn-animation-duration: 1.2s;
+        --btn-shadow-color: rgba(0, 0, 0, 0.137);
+        --btn-shadow: 0 2px 10px 0 var(--btn-shadow-color);
+        --hover-btn-color: #ffffff;
+        --default-btn-color: #fff;
+        --font-size: 16px;
+        /* 👆 this field should not be empty */
+        --font-weight: 600;
+        --font-family: Menlo, Roboto Mono, monospace;
+        /* 👆 this field should not be empty */
+      }
+    
+      /* button settings 👆 */
+    
+      .ui-btn {
+        box-sizing: border-box;
+        padding: var(--btn-padding);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -45px;
+        margin-left: 50px;
+        color: var(--default-btn-color);
+        font: var(--font-weight) var(--font-size) var(--font-family);
+        background: var(--btn-default-bg);
+        border: none;
+        cursor: pointer;
+        transition: var(--btn-transition);
+        overflow: hidden;
+        box-shadow: var(--btn-shadow);
+      }
+    
+      .ui-btn span {
+        letter-spacing: var(--btn-letter-spacing);
+        transition: var(--btn-transition);
+        box-sizing: border-box;
+        position: relative;
+        background: inherit;
+      }
+    
+      .ui-btn span::before {
+        box-sizing: border-box;
+        position: absolute;
+        content: "";
+        background: inherit;
+      }
+    
+      .ui-btn:hover,
+      .ui-btn:focus {
+        background: var(--btn-hover-bg);
+      }
+    
+      .ui-btn:hover span,
+      .ui-btn:focus span {
+        color: var(--hover-btn-color);
+      }
+    
+      .ui-btn:hover span::before,
+      .ui-btn:focus span::before {
+        animation: chitchat linear both var(--btn-animation-duration);
+      }
+    
+      @keyframes chitchat {
+        0% {
+          content: "#";
+        }
+    
+        5% {
+          content: ".";
+        }
+    
+        10% {
+          content: "^{";
+        }
+    
+        15% {
+          content: "-!";
+        }
+    
+        20% {
+          content: "#$_";
+        }
+    
+        25% {
+          content: "№:0";
+        }
+    
+        30% {
+          content: "#{+.";}35%{content: "@}-?";
+        }
+    
+        40% {
+          content: "?{4@%";
+        }
+    
+        45% {
+          content: "=.,^!";
+        }
+    
+        50% {
+          content: "?2@%";
+        }
+    
+        55% {
+          content: "\;1}]";
+        }
+    
+        60% {
+          content: "?{%:%";
+          right: 0;
+        }
+    
+        65% {
+          content: "|{f[4";
+          right: 0;
+        }
+    
+        70% {
+          content: "{4%0%";
+          right: 0;
+        }
+    
+        75% {
+          content: "'1_0<";
+          right: 0;
+        }
+    
+        80% {
+          content: "{0%";
+          right: 0;
+        }
+    
+        85% {
+          content: "]>'";
+          right: 0;
+        }
+    
+        90% {
+          content: "4";
+          right: 0;
+        }
+    
+        95% {
+          content: "2";
+          right: 0;
+        }
+    
+        100% {
+          content: "";
+          right: 0;
+        }
+      }
+    
+      .bttn {
+        margin-left: 125px;
+        /* margin-bottom: 5000px; */
+      }
+    
+      .h2 {
+        margin-left: 20px;
+      }
+    
+      .imgg {
+        align-items: center;
+        justify-content: center;
+        /* margin-left: 30px; */
+      }
+    
+      @media (max-width: 991px) {
+        body {
+          position: relative;
+          align-items: flex-start;
+          justify-content: flex-start;
+          margin-left: -125px;
+          margin-bottom: 0px;
+          overflow-x: hidden;
+          overflow-y: scroll;
+        }
+    
+        #background-video {
+          width: 100%;
+          height: 100vh;
+        }
+    
+        .download {
+          margin-top: 500px;
+        }
+    
+        .generator {
+          width: 350px;
+          max-width: 400px;
+          align-items: flex-start;
+          justify-content: flex-start;
+          margin-left: -100px;
+          margin-bottom: 120px;
+        }
+    
+        .imgg {
+          margin-left: -100px;
+        }
+    
+        .bttn {
+          margin-left: -50px;
+          margin-bottom: 50px;
+        }
+    
+        .download,
+        .bttn {
+          margin-top: 80px; /* Add spacing between .download and .bttn */
+        }
+    
+        #footer {
+          width: 200px;
+        }
+      }
+    
+      .download {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-left: 20px;
+        background-color: #34db7f;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: transform 0.3s, background-color 0.3s;
+      }
+    
+      .download:hover {
+        background-color: #34db7f;
+        transform: rotate(20deg);
+      }
+    
+      /* Optional animation for the link text */
+      .download span {
+        display: inline-block;
+        transition: transform 0.3s;
+      }
+    
+      .download:hover span {
+        transform: translateX(5px);
+      }
+    </style>
+    
+    {% endblock style %} {% block body %}
+    <video id="background-video" autoplay loop muted>
+      <source src="{% static 'assets/img/bg-video.mp4' %}" type="video/mp4" />
+      <!-- Add additional source elements for other formats if needed -->
+    </video>
+    <div class="content">
+      <form class="form" action="/qrcode" method="post">
+        {% csrf_token %}
+        <div class="generator">
+          <p>Qr-Code Generator</p>
+          <!-- <input placeholder="Enter your text here" cols="40" rows="9" class="subscribe-input" name="text" type="text" requited> -->
+          <input
+            type="text"
+            name="text"
+            id="text"
+            placeholder="Enter your text/url"
+            required
+          />
+          <br />
+          <!-- <div class="submit-btn">GENERATE</div> -->
+          <button id="btn" class="submit-btn">GENERATE</button>
+        </div>
+      </form>
+    
+      {% if text %}
+      <br />
+      <br />
+    
+      <h2 class="h2">Generated QR Code:</h2>
+      <img
+        class="imgg"
+        src="{% static 'assets/img/1234.png' %}"
+        alt="Generat new QR Code"
+      />
+    
+      <br /><br />
+    
+      <a
+        class="download"
+        href="{% static 'assets/img/1234.png' %}"
+        download="123.jpg"
+      >
+        Download</a
+      >
+    
+      <form class="bttn" method="post" action="{% url 'remove_qrcode' %}">
+        {% csrf_token %}
+        <!-- <button type="submit">Remove QR Code</button> -->
+        <button class="ui-btn">
+          <span> REMOVE </span>
+        </button>
+      </form>
+    
+      {% endif %}
+      <!-- {% if text %}
+    <img src="{{MEDIA_URL}}{% static 'assets/img/1234.png' %}" alt="no image">
+    {% else %}
+    {% endif %} -->
+    </div>
+    
+    {% endblock body %}
+    
