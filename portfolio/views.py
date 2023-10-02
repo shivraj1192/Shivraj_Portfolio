@@ -31,9 +31,8 @@ def contact(request):
             error_messages['name'] = "Please fill out this field!"
 
         # Validate phone number
-        if not fnum:
-            error_messages['phone'] = "Please fill out this field!"
-        elif not fnum.isdigit() or len(fnum) != 10:
+        
+        if not fnum.isdigit() or len(fnum) != 10:
             error_messages['phone'] = "Phone number should be 10 digits only!"
 
         # Validate email
