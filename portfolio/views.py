@@ -5,6 +5,7 @@ from qrcode import *
 import os
 import requests
 import datetime
+import re
 
 
 
@@ -14,18 +15,47 @@ def home(request):
 
 
 
+from django.shortcuts import render, redirect
+from .models import Port_Contact
+from django.contrib import messages
+import re
+
 def contact(request):
-    
-    if request.method=="POST":
-        fname= request.POST.get('port-name')
-        femail= request.POST.get('port-email')
-        fnum=request.POST.get('port-num')
-        fmes=request.POST.get('port-message')
-        query=Port_Contact( name=fname , email=femail , phonenumber=fnum , message=fmes)
+    if request.method == "POST":
+        fname = request.POST.get('port-name')
+        femail = request.POST.get('port-email')
+        fnum = request.POST.get('port-num')
+        fmes = request.POST.get('port-message')
+        error_messages = {}
+
+        # Validate name
+        if not fname:
+            error_messages['name'] = "Please fill out this field!"
+        elif not re.match("^[a-zA-Z\s]*$", fname):
+            error_messages['name'] = "Please enter only characters!"
+
+        # Validate phone number
+        if not fnum:
+            error_messages['phone'] = "Please fill out this field!"
+        elif not re.match("^\d{10}$", fnum):
+            error_messages['phone'] = "Phone number should be 10 digits only!"
+
+        # Validate email
+        if not femail:
+            error_messages['email'] = "Please fill out this field!"
+
+        if error_messages:
+            # If there are validation errors, render the form with error messages
+            return render(request, 'home.html', {'error_messages': error_messages})
+
+        # If no validation errors, save the data
+        query = Port_Contact(name=fname, email=femail, phonenumber=fnum, message=fmes)
         query.save()
-        messages.success(request,"Submitted!")
+        messages.success(request, "Submitted!")
         return redirect("/")
-    return render(request,'home.html')
+    
+    return render(request, 'home.html')
+
 
 
 
