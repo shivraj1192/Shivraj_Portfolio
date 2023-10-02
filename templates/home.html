@@ -1456,39 +1456,73 @@
 </div>
 
 <script>
-  function checkValidations() {
-    let letters = /^[a-zA-Z\s]*$/;
+  const nameEl = document.querySelector("#name");
+  const phoneEl = document.querySelector("#port-num");
+  const emailEl = document.querySelector("#email");
+  const messageEl = document.querySelector("#message");
+
+  const form = document.querySelector("#submit-form");
+
+  function validateName() {
+    const letters = /^[a-zA-Z\s]*$/;
     const name = nameEl.value.trim();
-    const phone = phoneEl.value.trim();
-    const email = emailEl.value.trim();
-    const message = messageEl.value.trim();
-  
-    
-    document.querySelector(".name-error").innerText = "";
-    document.querySelector(".phone-error").innerText = "";
-    document.querySelector(".email-error").innerText = "";
-  
+    const errorEl = document.querySelector(".name-error");
+    errorEl.innerText = "";
+
     if (name === "") {
-      document.querySelector(".name-error").classList.add("error");
-      document.querySelector(".name-error").innerText = "Please fill out this field!";
+      errorEl.classList.add("error");
+      errorEl.innerText = "Please fill out this field!";
     } else if (!letters.test(name)) {
-      document.querySelector(".name-error").classList.add("error");
-      document.querySelector(".name-error").innerText = "Please enter only characters!";
-    }
-  
-    if (phone === "") {
-      document.querySelector(".phone-error").classList.add("error");
-      document.querySelector(".phone-error").innerText = "Please fill out this field!";
-    } else if (phone.length !== 10 || !/^\d+$/.test(phone)) { 
-      document.querySelector(".phone-error").classList.add("error");
-      document.querySelector(".phone-error").innerText = "Phone number should be 10 digits only!";
-    }
-  
-    if (email === "") {
-      document.querySelector(".email-error").classList.add("error");
-      document.querySelector(".email-error").innerText = "Please fill out this field!";
+      errorEl.classList.add("error");
+      errorEl.innerText = "Please enter only characters!";
+    } else {
+      errorEl.classList.remove("error");
     }
   }
-  
+
+  function validatePhone() {
+    const phone = phoneEl.value.trim();
+    const errorEl = document.querySelector(".phone-error");
+    errorEl.innerText = "";
+
+    if (phone === "") {
+      errorEl.classList.add("error");
+      errorEl.innerText = "Please fill out this field!";
+    } else if (phone.length !== 10 || !/^\d+$/.test(phone)) {
+      errorEl.classList.add("error");
+      errorEl.innerText = "Phone number should be 10 digits only!";
+    } else {
+      errorEl.classList.remove("error");
+    }
+  }
+
+  function validateEmail() {
+    const email = emailEl.value.trim();
+    const errorEl = document.querySelector(".email-error");
+    errorEl.innerText = "";
+
+    if (email === "") {
+      errorEl.classList.add("error");
+      errorEl.innerText = "Please fill out this field!";
+    } else {
+      errorEl.classList.remove("error");
+    }
+  }
+
+  nameEl.addEventListener("input", validateName);
+  phoneEl.addEventListener("input", validatePhone);
+  emailEl.addEventListener("input", validateEmail);
+
+  form.addEventListener("submit", function (event) {
+    validateName();
+    validatePhone();
+    validateEmail();
+
+    // If any error exists, prevent form submission
+    if (document.querySelectorAll(".error").length > 0) {
+      event.preventDefault();
+    }
+  });
 </script>
+
 {% endblock body %}
