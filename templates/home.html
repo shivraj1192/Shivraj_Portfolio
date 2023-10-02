@@ -1398,7 +1398,7 @@
           </p>
           <p>
             <input
-              id="email"
+              id="port-num"
               class="con-form-input"
               type="text"
               name="port-num"
@@ -1409,7 +1409,7 @@
           </p>
           <p class="full-width">
             <input
-              id="company-name"
+              id="email"
               class="con-form-input"
               type="email"
               name="port-email"
@@ -1457,50 +1457,64 @@
 
 <script>
   const nameEl = document.querySelector("#name");
+  const phoneEl = document.querySelector("#port-num");
   const emailEl = document.querySelector("#email");
-  const companyNameEl = document.querySelector("#company-name");
   const messageEl = document.querySelector("#message");
 
   const form = document.querySelector("#submit-form");
 
   function checkValidations() {
-    let letters = /^[a-zA-Z\s]*$/;
+    const letters = /^[a-zA-Z\s]*$/;
     const name = nameEl.value.trim();
+    const phone = phoneEl.value.trim();
     const email = emailEl.value.trim();
-    const companyName = companyNameEl.value.trim();
     const message = messageEl.value.trim();
+
+    // Reset error messages
+    document.querySelector(".name-error").innerText = "";
+    document.querySelector(".phone-error").innerText = "";
+    document.querySelector(".email-error").innerText = "";
+
     if (name === "") {
       document.querySelector(".name-error").classList.add("error");
-      document.querySelector(".name-error").innerText =
-        "Please fill out this field!";
-    } else {
-      if (!letters.test(name)) {
-        document.querySelector(".name-error").classList.add("error");
-        document.querySelector(".name-error").innerText =
-          "Please enter only characters!";
-      } else {
-      }
-    }
-    if (email === "") {
+      document.querySelector(".name-error").innerText = "Please fill out this field!";
+    } else if (!letters.test(name)) {
       document.querySelector(".name-error").classList.add("error");
-      document.querySelector(".name-error").innerText =
-        "Please fill out this field!";
-    } else {
-      if (!letters.test(name)) {
-        document.querySelector(".name-error").classList.add("error");
-        document.querySelector(".name-error").innerText =
-          "Please enter only characters!";
-      } else {
-      }
+      document.querySelector(".name-error").innerText = "Please enter only characters!";
+    }
+
+    if (phone === "") {
+      document.querySelector(".phone-error").classList.add("error");
+      document.querySelector(".phone-error").innerText = "Please fill out this field!";
+    } else if (phone.length !== 10 || !/^\d+$/.test(phone)) {
+      document.querySelector(".phone-error").classList.add("error");
+      document.querySelector(".phone-error").innerText = "Phone number should be 10 digits only!";
+    }
+
+    if (email === "") {
+      document.querySelector(".email-error").classList.add("error");
+      document.querySelector(".email-error").innerText = "Please fill out this field!";
     }
   }
 
   function reset() {
-    nameEl = "";
-    emailEl = "";
-    companyNameEl = "";
-    messageEl = "";
+    nameEl.value = "";
+    phoneEl.value = "";
+    emailEl.value = "";
+    messageEl.value = "";
     document.querySelector(".name-error").innerText = "";
+    document.querySelector(".phone-error").innerText = "";
+    document.querySelector(".email-error").innerText = "";
   }
+
+  // Attach event listener to the form submission
+  form.addEventListener("submit", function(event) {
+    checkValidations();
+    // If any error exists, prevent form submission
+    if (document.querySelectorAll(".error").length > 0) {
+      event.preventDefault();
+    }
+  });
 </script>
+
 {% endblock body %}
