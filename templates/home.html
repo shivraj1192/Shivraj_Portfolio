@@ -1456,25 +1456,18 @@
 </div>
 
 <script>
-  const nameEl = document.querySelector("#name");
-  const phoneEl = document.querySelector("#port-num");
-  const emailEl = document.querySelector("#email");
-  const messageEl = document.querySelector("#message");
-
-  const form = document.querySelector("#submit-form");
-
   function checkValidations() {
-    const letters = /^[a-zA-Z\s]*$/;
+    let letters = /^[a-zA-Z\s]*$/;
     const name = nameEl.value.trim();
     const phone = phoneEl.value.trim();
     const email = emailEl.value.trim();
     const message = messageEl.value.trim();
-
-    // Reset error messages
+  
+    
     document.querySelector(".name-error").innerText = "";
     document.querySelector(".phone-error").innerText = "";
     document.querySelector(".email-error").innerText = "";
-
+  
     if (name === "") {
       document.querySelector(".name-error").classList.add("error");
       document.querySelector(".name-error").innerText = "Please fill out this field!";
@@ -1482,37 +1475,20 @@
       document.querySelector(".name-error").classList.add("error");
       document.querySelector(".name-error").innerText = "Please enter only characters!";
     }
-
+  
     if (phone === "") {
       document.querySelector(".phone-error").classList.add("error");
       document.querySelector(".phone-error").innerText = "Please fill out this field!";
-    } else if (phone.length !== 10 || !/^\d+$/.test(phone)) {
+    } else if (phone.length !== 10 || !/^\d+$/.test(phone)) { 
       document.querySelector(".phone-error").classList.add("error");
       document.querySelector(".phone-error").innerText = "Phone number should be 10 digits only!";
     }
-
+  
     if (email === "") {
       document.querySelector(".email-error").classList.add("error");
       document.querySelector(".email-error").innerText = "Please fill out this field!";
     }
   }
-
-  function reset() {
-    nameEl.value = "";
-    phoneEl.value = "";
-    emailEl.value = "";
-    messageEl.value = "";
-    document.querySelector(".name-error").innerText = "";
-    document.querySelector(".phone-error").innerText = "";
-    document.querySelector(".email-error").innerText = "";
-  }
-
-  form.addEventListener("submit", function (event) {
-    checkValidations();
-    if (document.querySelectorAll(".error").length > 0) {
-      event.preventDefault();
-    }
-  });
+  
 </script>
-
 {% endblock body %}
