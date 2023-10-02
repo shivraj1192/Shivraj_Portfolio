@@ -1507,10 +1507,8 @@
     document.querySelector(".email-error").innerText = "";
   }
 
-  // Attach event listener to the form submission
-  form.addEventListener("submit", function(event) {
+  form.addEventListener("submit", function (event) {
     checkValidations();
-    // If any error exists, prevent form submission
     if (document.querySelectorAll(".error").length > 0) {
       event.preventDefault();
     }
