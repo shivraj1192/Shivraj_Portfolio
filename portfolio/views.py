@@ -33,7 +33,7 @@ def contact(request):
         # Validate phone number
         
         if not fnum.isdigit() or len(fnum) != 10:
-            error_messages['phone'] = "Phone number should be 10 digits only!"
+            error_messages['port-num'] = "Phone number should be 10 digits only!"
 
         # Validate email
         if not femail:
