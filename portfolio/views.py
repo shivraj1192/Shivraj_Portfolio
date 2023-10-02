@@ -5,7 +5,6 @@ from qrcode import *
 import os
 import requests
 import datetime
-import re
 
 
 
@@ -18,7 +17,6 @@ def home(request):
 from django.shortcuts import render, redirect
 from .models import Port_Contact
 from django.contrib import messages
-import re
 
 def contact(request):
     if request.method == "POST":
@@ -31,13 +29,11 @@ def contact(request):
         # Validate name
         if not fname:
             error_messages['name'] = "Please fill out this field!"
-        elif not re.match("^[a-zA-Z\s]*$", fname):
-            error_messages['name'] = "Please enter only characters!"
 
         # Validate phone number
         if not fnum:
             error_messages['phone'] = "Please fill out this field!"
-        elif not re.match("^\d{10}$", fnum):
+        elif not fnum.isdigit() or len(fnum) != 10:
             error_messages['phone'] = "Phone number should be 10 digits only!"
 
         # Validate email
