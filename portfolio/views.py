@@ -32,39 +32,65 @@ def contact(request):
 
 def internship(request):
     return render(request,'internship.html')
-text=None
+# text=None
 
-def qrcode(request):
-    global text
-    if request.method=="POST":
-        text= request.POST.get('text')
+# def qrcode(request):
+#     global text
+#     if request.method=="POST":
+#         text= request.POST.get('text')
 
-        if os.path.exists('static/assets/img/1234.png'):
-            os.remove('static/assets/img/1234.png')
+#         if os.path.exists('static/assets/img/1234.png'):
+#             os.remove('static/assets/img/1234.png')
 
         
 
+#         img = make(text)
+
+#         img.save('static/assets/img/1234.png')
+
+#     else:
+#         pass
+
+#     context = {'text': text}
+
+
+
+#     return render(request,'qrcode.html',context)
+
+
+
+
+# def remove_qrcode(request):
+#     if os.path.exists('static/assets/img/1234.png'):
+#         os.remove('static/assets/img/1234.png')
+#     return redirect('/qrcode') 
+
+
+fs = FileSystemStorage(location="static/assets/img/")
+
+def qrcode(request):
+    if request.method == "POST":
+        text = request.POST.get('text')
+
+        # Delete the existing file
+        try:
+            fs.delete('1234.png')
+        except FileNotFoundError:
+            pass
+
         img = make(text)
 
-        img.save('static/assets/img/1234.png')
+        # Save the image using the file storage
+        filename = fs.save('1234.png', ContentFile(img.tobytes()))
 
-    else:
-        pass
+    # Rest of your code
 
-    context = {'text': text}
-
-
-
-    return render(request,'qrcode.html',context)
-
-
-
+    return render(request, 'qrcode.html', context)
 
 def remove_qrcode(request):
-    if os.path.exists('static/assets/img/1234.png'):
-        os.remove('static/assets/img/1234.png')
-    return redirect('/qrcode') 
-
+    # Delete the file using the file storage
+    fs.delete('1234.png')
+    return redirect('/qrcode')
 
 
 def weather(request):
