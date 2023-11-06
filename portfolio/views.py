@@ -5,6 +5,7 @@ from qrcode import *
 import os
 import requests
 import datetime
+from django.core.files.storage import FileSystemStorage
 
 
 
