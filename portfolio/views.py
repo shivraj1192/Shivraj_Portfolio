@@ -5,7 +5,7 @@ from qrcode import *
 import os
 import requests
 import datetime
-from django.core.files.storage import FileSystemStorage
+
 
 
 
@@ -32,65 +32,39 @@ def contact(request):
 
 def internship(request):
     return render(request,'internship.html')
-# text=None
+text=None
 
-# def qrcode(request):
-#     global text
-#     if request.method=="POST":
-#         text= request.POST.get('text')
+def qrcode(request):
+    global text
+    if request.method=="POST":
+        text= request.POST.get('text')
 
-#         if os.path.exists('static/assets/img/1234.png'):
-#             os.remove('static/assets/img/1234.png')
+        if os.path.exists('static/assets/img/1234.png'):
+            os.remove('static/assets/img/1234.png')
 
         
 
-#         img = make(text)
-
-#         img.save('static/assets/img/1234.png')
-
-#     else:
-#         pass
-
-#     context = {'text': text}
-
-
-
-#     return render(request,'qrcode.html',context)
-
-
-
-
-# def remove_qrcode(request):
-#     if os.path.exists('static/assets/img/1234.png'):
-#         os.remove('static/assets/img/1234.png')
-#     return redirect('/qrcode') 
-
-
-fs = FileSystemStorage(location="static/assets/img/")
-
-def qrcode(request):
-    if request.method == "POST":
-        text = request.POST.get('text')
-
-        # Delete the existing file
-        try:
-            fs.delete('1234.png')
-        except FileNotFoundError:
-            pass
-
         img = make(text)
 
-        # Save the image using the file storage
-        filename = fs.save('1234.png', ContentFile(img.tobytes()))
+        img.save('static/assets/img/1234.png')
 
-    # Rest of your code
+    else:
+        pass
 
-    return render(request, 'qrcode.html', context)
+    context = {'text': text}
+
+
+
+    return render(request,'qrcode.html',context)
+
+
+
 
 def remove_qrcode(request):
-    # Delete the file using the file storage
-    fs.delete('1234.png')
-    return redirect('/qrcode')
+    if os.path.exists('static/assets/img/1234.png'):
+        os.remove('static/assets/img/1234.png')
+    return redirect('/qrcode') 
+
 
 
 def weather(request):
