@@ -373,6 +373,12 @@
             <button id="btn" class="submit-btn">GENERATE</button>
           </div>
         </form>
+
+        {% if text %}
+        <img src="{% url 'qrcode' %}" alt="QR Code">
+        <br>
+        <a href="{% url 'download_qrcode' %}"><button>Download QR Code</button></a>
+    {% endif %}
       
         <!-- {% if text %}
         <br />

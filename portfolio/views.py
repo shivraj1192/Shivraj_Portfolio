@@ -6,6 +6,7 @@ import os
 import requests
 import datetime
 from django.http import HttpResponse
+from django.http import FileResponse
 from io import BytesIO
 import uuid
 from qrcode import make
@@ -66,6 +67,25 @@ def qrcode(request):
 
     context = {'text': text}
     return render(request, 'qrcode.html', context)
+
+
+
+
+
+def download_qrcode(request):
+    global text
+    if text:
+        filename = f'static/assets/img/{uuid.uuid4()}.png'
+        img = make(text)
+        img.save(filename)
+
+        with open(filename, 'rb') as img_file:
+            response = FileResponse(img_file)
+            response['Content-Disposition'] = 'attachment; filename="qrcode.png"'
+            return response
+    else:
+        # Handle the case when there is no QR code generated
+        return HttpResponse("No QR Code generated.")
 
 
 

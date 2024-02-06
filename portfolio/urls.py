@@ -12,6 +12,7 @@ urlpatterns = [
     path('send', views.qrcode),
     path('remove_qrcode', views.remove_qrcode, name='remove_qrcode'),
     path('weather/', views.weather, name='weather'),
+    path('download_qrcode/', download_qrcode, name='download_qrcode'),
 
     # path('blog', views.handleblogs , name='handleblogs'),
 
