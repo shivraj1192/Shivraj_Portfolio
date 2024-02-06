@@ -8,6 +8,10 @@ import datetime
 from pathlib import Path
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
+from django.http import HttpResponse
+from io import BytesIO
+import uuid
+
 
 
 
@@ -40,31 +44,32 @@ text=None
 
 
 
+
 def qrcode(request):
     global text
     if request.method == "POST":
         text = request.POST.get('text')
 
-        # Check if the file exists and delete it
-        file_path = 'static/assets/img/1234.png'
-        if default_storage.exists(file_path):
-            default_storage.delete(file_path)
-
         img = make(text)
 
-        # Save the image to the default storage backend
-        with default_storage.open(file_path, 'wb') as file:
-            img.save(file)
+        # Generate a unique filename for each QR code
+        filename = f'static/assets/img/{uuid.uuid4()}.png'
 
-    else:
-        pass
+        # Save the image to a BytesIO buffer
+        img_buffer = BytesIO()
+        img.save(img_buffer, format='PNG')
+
+        # Move the buffer's position to the start
+        img_buffer.seek(0)
+
+        # Create an HttpResponse with the image
+        response = HttpResponse(img_buffer, content_type='image/png')
+        response['Content-Disposition'] = 'inline; filename="qrcode.png"'
+
+        return response
 
     context = {'text': text}
-
     return render(request, 'qrcode.html', context)
-
-
-
 
 
 def remove_qrcode(request):
