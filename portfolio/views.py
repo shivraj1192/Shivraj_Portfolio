@@ -8,6 +8,7 @@ import datetime
 from django.http import HttpResponse
 from io import BytesIO
 import uuid
+from PIL import Image
 
 
 

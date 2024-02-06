@@ -84,14 +84,25 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # }
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': 'hy0pjQ6T1BN2hEwmjwXu',
+#         'HOST': 'containers-us-west-106.railway.app',
+#         'PORT': '6876',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'hy0pjQ6T1BN2hEwmjwXu',
-        'HOST': 'containers-us-west-106.railway.app',
-        'PORT': '6876',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "tododb",
+        "USER": "shivraj1192",
+        "PASSWORD": "Shivraj@1192",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 }
 
