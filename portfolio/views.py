@@ -5,6 +5,8 @@ from qrcode import *
 import os
 import requests
 import datetime
+from pathlib import Path
+
 
 
 
@@ -36,26 +38,23 @@ text=None
 
 def qrcode(request):
     global text
-    if request.method=="POST":
-        text= request.POST.get('text')
+    if request.method == "POST":
+        text = request.POST.get('text')
 
-        if os.path.exists('static/assets/img/1234.png'):
-            os.remove('static/assets/img/1234.png')
-
-        
+        # Check if the file exists and delete it
+        file_path = 'static/assets/img/1234.png'
+        if Path(file_path).is_file():
+            Path(file_path).unlink()
 
         img = make(text)
-
-        img.save('static/assets/img/1234.png')
+        img.save(file_path)
 
     else:
         pass
 
     context = {'text': text}
 
-
-
-    return render(request,'qrcode.html',context)
+    return render(request, 'qrcode.html', context)
 
 
 
