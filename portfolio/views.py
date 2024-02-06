@@ -48,8 +48,8 @@ def qrcode(request):
         # Generate a unique filename for each QR code
         filename = f'static/assets/img/{uuid.uuid4()}.png'
 
-        # Create the image with the specified format
-        img = make(text, format='PNG')
+        # Generate the QR code image
+        img = make(text)
 
         # Save the image to a BytesIO buffer
         img_buffer = BytesIO()
