@@ -5,14 +5,9 @@ from qrcode import *
 import os
 import requests
 import datetime
-from pathlib import Path
-from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
 from django.http import HttpResponse
 from io import BytesIO
 import uuid
-
-
 
 
 
@@ -44,7 +39,6 @@ text=None
 
 
 
-
 def qrcode(request):
     global text
     if request.method == "POST":
@@ -71,7 +65,11 @@ def qrcode(request):
 
     context = {'text': text}
     return render(request, 'qrcode.html', context)
-    
+
+
+
+
+
 def remove_qrcode(request):
     if os.path.exists('static/assets/img/1234.png'):
         os.remove('static/assets/img/1234.png')
