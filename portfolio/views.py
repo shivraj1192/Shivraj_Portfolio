@@ -5,10 +5,6 @@ from qrcode import *
 import os
 import requests
 import datetime
-from django.http import HttpResponse
-from io import BytesIO
-import uuid
-from PIL import Image
 
 
 
@@ -38,35 +34,28 @@ def internship(request):
     return render(request,'internship.html')
 text=None
 
-
-
 def qrcode(request):
     global text
-    if request.method == "POST":
-        text = request.POST.get('text')
+    if request.method=="POST":
+        text= request.POST.get('text')
 
-        # Generate a unique filename for each QR code
-        filename = f'static/assets/img/{uuid.uuid4()}.png'
+        if os.path.exists('static/assets/img/1234.png'):
+            os.remove('static/assets/img/1234.png')
 
-        # Generate the QR code image
+        
+
         img = make(text)
 
-        # Save the image to a BytesIO buffer
-        img_buffer = BytesIO()
-        img.save(img_buffer)
+        img.save('static/assets/img/1234.png')
 
-        # Move the buffer's position to the start
-        img_buffer.seek(0)
-
-        # Create an HttpResponse with the image
-        response = HttpResponse(img_buffer, content_type='image/png')
-        response['Content-Disposition'] = 'inline; filename="qrcode.png"'
-
-        return response
+    else:
+        pass
 
     context = {'text': text}
-    return render(request, 'qrcode.html', context)
 
+
+
+    return render(request,'qrcode.html',context)
 
 
 
