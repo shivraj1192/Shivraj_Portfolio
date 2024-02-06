@@ -50,10 +50,11 @@ def qrcode(request):
     if request.method == "POST":
         text = request.POST.get('text')
 
-        img = make(text)
-
         # Generate a unique filename for each QR code
         filename = f'static/assets/img/{uuid.uuid4()}.png'
+
+        # Create the image with the specified format
+        img = make(text, format='PNG')
 
         # Save the image to a BytesIO buffer
         img_buffer = BytesIO()
@@ -70,6 +71,7 @@ def qrcode(request):
 
     context = {'text': text}
     return render(request, 'qrcode.html', context)
+
 
 def remove_qrcode(request):
     if os.path.exists('static/assets/img/1234.png'):
