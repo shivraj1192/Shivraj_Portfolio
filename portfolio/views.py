@@ -72,8 +72,8 @@ def qrcode(request):
 
 
 def remove_qrcode(request):
-    if os.path.exists('static/assets/img/1234.png'):
-        os.remove('static/assets/img/1234.png')
+    # if os.path.exists('static/assets/img/1234.png'):
+    #     os.remove('static/assets/img/1234.png')
     return redirect('/qrcode') 
 
 
