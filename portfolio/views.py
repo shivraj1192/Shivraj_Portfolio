@@ -57,7 +57,7 @@ def qrcode(request):
 
         # Save the image to a BytesIO buffer
         img_buffer = BytesIO()
-        img.save(img_buffer, format='PNG')
+        img.save(img_buffer)
 
         # Move the buffer's position to the start
         img_buffer.seek(0)
@@ -70,7 +70,6 @@ def qrcode(request):
 
     context = {'text': text}
     return render(request, 'qrcode.html', context)
-
 
 def remove_qrcode(request):
     if os.path.exists('static/assets/img/1234.png'):
