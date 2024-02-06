@@ -71,8 +71,7 @@ def qrcode(request):
 
     context = {'text': text}
     return render(request, 'qrcode.html', context)
-
-
+    
 def remove_qrcode(request):
     if os.path.exists('static/assets/img/1234.png'):
         os.remove('static/assets/img/1234.png')
