@@ -6,6 +6,8 @@ import os
 import requests
 import datetime
 from pathlib import Path
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 
 
 
@@ -36,6 +38,8 @@ def internship(request):
     return render(request,'internship.html')
 text=None
 
+
+
 def qrcode(request):
     global text
     if request.method == "POST":
@@ -43,11 +47,14 @@ def qrcode(request):
 
         # Check if the file exists and delete it
         file_path = 'static/assets/img/1234.png'
-        if Path(file_path).is_file():
-            Path(file_path).unlink()
+        if default_storage.exists(file_path):
+            default_storage.delete(file_path)
 
         img = make(text)
-        img.save(file_path)
+
+        # Save the image to the default storage backend
+        with default_storage.open(file_path, 'wb') as file:
+            img.save(file)
 
     else:
         pass
@@ -55,6 +62,7 @@ def qrcode(request):
     context = {'text': text}
 
     return render(request, 'qrcode.html', context)
+
 
 
 
